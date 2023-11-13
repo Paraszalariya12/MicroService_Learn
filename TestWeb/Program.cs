@@ -1,21 +1,7 @@
-using Ecomm.Web.Service;
-using Ecomm.Web.Service.IService;
-using Ecomm.Web.Utility;
-
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<ICouponService, CouponService>();
-Constants.CouponAPIBaseUrl = builder.Configuration["ServiceUrls:CouponAPIBaseUrl"];
-
-
-builder.Services.AddScoped<IBaseService, BaseService>();
-builder.Services.AddScoped<ICouponService, CouponService>();
 
 var app = builder.Build();
 
@@ -27,12 +13,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(

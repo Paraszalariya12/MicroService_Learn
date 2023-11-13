@@ -9,7 +9,7 @@ using static Azure.Core.HttpHeader;
 
 namespace Ecomm_Service.CouponAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Coupon")]
     [ApiController]
     public class CouponAPIController : ControllerBase
     {
@@ -19,8 +19,8 @@ namespace Ecomm_Service.CouponAPI.Controllers
         public CouponAPIController(ApplicationDbContext db, IMapper mapper)
         {
             _context = db;
-            responseDto=new ResponseDto();
-            _mapper=mapper;
+            responseDto = new ResponseDto();
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -29,7 +29,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
             try
             {
                 var objcoupons = _context.coupons.ToList();
-                if (objcoupons!=null && objcoupons.Count>0)
+                if (objcoupons != null && objcoupons.Count > 0)
                 {
                     responseDto.IsSuccess = true;
                     responseDto.Data = _mapper.Map<List<CouponDto>>(objcoupons);
@@ -39,11 +39,11 @@ namespace Ecomm_Service.CouponAPI.Controllers
                     responseDto.IsSuccess = false;
                     responseDto.Message = "No data found !!";
                 }
-                
+
             }
             catch (Exception ex)
             {
-                responseDto.IsSuccess=false;
+                responseDto.IsSuccess = false;
                 responseDto.Message = ex.Message;
             }
 
@@ -56,7 +56,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
         {
             try
             {
-                var objcoupons = _context.coupons.Where(a=>a.CouponId==CouponId).FirstOrDefault();
+                var objcoupons = _context.coupons.Where(a => a.CouponId == CouponId).FirstOrDefault();
                 if (objcoupons != null)
                 {
                     responseDto.IsSuccess = true;
@@ -83,7 +83,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
         {
             try
             {
-                var objcoupons = _context.coupons.FirstOrDefault(a => a.CouponCode== CouponCode);
+                var objcoupons = _context.coupons.FirstOrDefault(a => a.CouponCode == CouponCode);
                 if (objcoupons != null)
                 {
                     responseDto.IsSuccess = true;
@@ -105,14 +105,14 @@ namespace Ecomm_Service.CouponAPI.Controllers
         }
 
         [HttpPost]
-        public ResponseDto Post([FromBody]CouponDto couponDto)
+        public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
             {
-                Coupon coupon =_mapper.Map<Coupon>(couponDto);
+                Coupon coupon = _mapper.Map<Coupon>(couponDto);
                 _context.coupons.Add(coupon);
                 _context.SaveChanges();
-                if (coupon.CouponId >0)
+                if (coupon.CouponId > 0)
                 {
                     responseDto.IsSuccess = true;
                     responseDto.Data = _mapper.Map<CouponDto>(coupon);
@@ -140,7 +140,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                 if (_context.coupons.Any(a => a.CouponId == couponDto.CouponId))
                 {
                     var objcoupon = _mapper.Map<Coupon>(couponDto);
-                    
+
                     _context.Update(objcoupon);
                     _context.SaveChanges();
                     responseDto.IsSuccess = true;
