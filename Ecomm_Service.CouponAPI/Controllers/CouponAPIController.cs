@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using static Azure.Core.HttpHeader;
+using Newtonsoft.Json;
 
 namespace Ecomm_Service.CouponAPI.Controllers
 {
@@ -32,7 +33,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                 if (objcoupons != null && objcoupons.Count > 0)
                 {
                     responseDto.IsSuccess = true;
-                    responseDto.Data = _mapper.Map<List<CouponDto>>(objcoupons);
+                    responseDto.Data = JsonConvert.SerializeObject(_mapper.Map<List<CouponDto>>(objcoupons));
                 }
                 else
                 {
@@ -60,7 +61,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                 if (objcoupons != null)
                 {
                     responseDto.IsSuccess = true;
-                    responseDto.Data = _mapper.Map<CouponDto>(objcoupons);
+                    responseDto.Data = JsonConvert.SerializeObject(_mapper.Map<CouponDto>(objcoupons));
                 }
                 else
                 {
@@ -87,7 +88,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                 if (objcoupons != null)
                 {
                     responseDto.IsSuccess = true;
-                    responseDto.Data = _mapper.Map<CouponDto>(objcoupons);
+                    responseDto.Data = JsonConvert.SerializeObject(_mapper.Map<CouponDto>(objcoupons));
                 }
                 else
                 {
@@ -115,7 +116,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                 if (coupon.CouponId > 0)
                 {
                     responseDto.IsSuccess = true;
-                    responseDto.Data = _mapper.Map<CouponDto>(coupon);
+                    responseDto.Data = JsonConvert.SerializeObject(_mapper.Map<CouponDto>(coupon));
                 }
                 else
                 {
@@ -144,7 +145,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                     _context.Update(objcoupon);
                     _context.SaveChanges();
                     responseDto.IsSuccess = true;
-                    responseDto.Data = _mapper.Map<CouponDto>(objcoupon);
+                    responseDto.Data = JsonConvert.SerializeObject(_mapper.Map<CouponDto>(objcoupon));
                 }
                 else
                 {
@@ -174,7 +175,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
                     _context.SaveChanges();
 
                     responseDto.IsSuccess = true;
-                    responseDto.Data = _mapper.Map<CouponDto>(objcoupon);
+                    responseDto.Data = JsonConvert.SerializeObject(_mapper.Map<CouponDto>(objcoupon));
                 }
                 else
                 {

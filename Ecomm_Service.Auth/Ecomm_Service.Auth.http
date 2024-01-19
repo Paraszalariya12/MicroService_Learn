@@ -1,0 +1,6 @@
+@Ecomm_Service.Auth_HostAddress = http://localhost:5122
+
+GET {{Ecomm_Service.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

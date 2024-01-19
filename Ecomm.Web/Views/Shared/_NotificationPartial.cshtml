@@ -1,0 +1,22 @@
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" asp-append-version="true" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@if (TempData["error"] != null)
+{
+    <script>
+        toastr.error('@TempData["error"]');
+    </script>
+}
+@if (TempData["success"] != null)
+{
+    <script>
+        toastr.success('@TempData["success"]');
+    </script>
+}
+@if (TempData["warning"] != null)
+{
+    <script>
+        toastr.warning('@TempData["warning"]');
+    </script>
+}

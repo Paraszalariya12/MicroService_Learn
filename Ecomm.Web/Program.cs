@@ -1,6 +1,7 @@
 using Ecomm.Web.Service;
 using Ecomm.Web.Service.IService;
 using Ecomm.Web.Utility;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +13,18 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 Constants.CouponAPIBaseUrl = builder.Configuration["ServiceUrls:CouponAPIBaseUrl"];
-
+Constants.AuthAPIBaseUrl = builder.Configuration["ServiceUrls:AuthAPIBaseUrl"];
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.ExpireTimeSpan = TimeSpan.FromHours(10);
+    option.LoginPath = "/Auth/Login";
+    option.AccessDeniedPath = "/Auth/AccessDenied";
+});
 
 var app = builder.Build();
 
