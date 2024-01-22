@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 using static Azure.Core.HttpHeader;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecomm_Service.CouponAPI.Controllers
 {
     [Route("api/Coupon")]
     [ApiController]
+    [Authorize]
     public class CouponAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

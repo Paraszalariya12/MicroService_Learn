@@ -61,6 +61,15 @@ namespace Ecomm_Service.AuthAPI.Controllers
                 };
                 return BadRequest(response);
             }
+            else if (loginResponsedto != null && loginResponsedto.userDto != null && !loginResponsedto.IsRoleExists)
+            {
+                response = new()
+                {
+                    IsSuccess = false,
+                    Message = "Role is not assigned to User. Please Connect with administrator.."
+                };
+                return BadRequest(response);
+            }
             else
             {
                 response = new()

@@ -106,6 +106,14 @@ namespace Ecomm.Web.Controllers
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Name, jwtdata.Claims.FirstOrDefault(a => a.Type == JwtRegisteredClaimNames.Name).Value));
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Email, jwtdata.Claims.FirstOrDefault(a => a.Type == JwtRegisteredClaimNames.Email).Value));
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.NameId, jwtdata.Claims.FirstOrDefault(a => a.Type == JwtRegisteredClaimNames.NameId).Value));
+
+            identity.AddClaim(new Claim(ClaimTypes.Name, jwtdata.Claims.FirstOrDefault(a => a.Type == JwtRegisteredClaimNames.Email).Value));
+
+            if (jwtdata.Claims.Any(a => a.Type == "role"))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, jwtdata.Claims.FirstOrDefault(a => a.Type == "role").Value));
+            }
+
             var prinicipal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, prinicipal);
         }

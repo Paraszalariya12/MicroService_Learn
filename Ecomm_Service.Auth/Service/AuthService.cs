@@ -41,26 +41,47 @@ namespace Ecomm_Service.AuthAPI.Service
             var result = _db.applicationUsers.FirstOrDefault(a => a.UserName.ToLower() == loginRequestDto.UserName.ToLower());
             if (result == null)
             {
-                return new LoginResponseDto() { userDto = null, Token = "" };
+                return new LoginResponseDto() { userDto = null, Token = "", IsRoleExists = false };
             }
             else
             {
                 bool iavalid = await _userManager.CheckPasswordAsync(result, loginRequestDto.Password);
                 if (!iavalid)
                 {
-                    return new LoginResponseDto() { userDto = null, Token = "" };
+                    return new LoginResponseDto() { userDto = null, Token = "", IsRoleExists = false };
                 }
 
-                loginResponseDto.Token = _jwtTokenGenerator.GenerateToken(result);
-
-                loginResponseDto.userDto = new()
+                var roles = await _userManager.GetRolesAsync(result);
+                if (roles != null && roles.Count() > 0)
                 {
-                    DateofBirth = result.DateofBirth,
-                    Email = result.Email,
-                    Id = result.Id,
-                    Name = result.Name,
-                    PhoneNumber = result.PhoneNumber
-                };
+                    loginResponseDto.Token = _jwtTokenGenerator.GenerateToken(result, roles);
+                    loginResponseDto.IsRoleExists = true;
+                    loginResponseDto.userDto = new()
+                    {
+                        DateofBirth = result.DateofBirth,
+                        Email = result.Email,
+                        Id = result.Id,
+                        Name = result.Name,
+                        PhoneNumber = result.PhoneNumber
+                    };
+                }
+                else
+                {
+                    return new LoginResponseDto()
+                    {
+                        userDto = new()
+                        {
+                            DateofBirth = result.DateofBirth,
+                            Email = result.Email,
+                            Id = result.Id,
+                            Name = result.Name,
+                            PhoneNumber = result.PhoneNumber
+                        },
+                        Token = "",
+                        IsRoleExists = false
+                    };
+                }
+
                 return loginResponseDto;
             }
         }

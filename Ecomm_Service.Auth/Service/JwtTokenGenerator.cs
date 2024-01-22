@@ -15,7 +15,7 @@ namespace Ecomm_Service.AuthAPI.Service
         {
             _jwtOptions = jwtOptions.Value;
         }
-        public string GenerateToken(ApplicationUser applicationUser)
+        public string GenerateToken(ApplicationUser applicationUser, IEnumerable<string> Roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtOptions.SecretKey);
@@ -25,6 +25,10 @@ namespace Ecomm_Service.AuthAPI.Service
                 new Claim(JwtRegisteredClaimNames.Email,applicationUser.Email),
                 new Claim(JwtRegisteredClaimNames.NameId,applicationUser.Id),
             };
+            if (Roles != null && Roles.Count() > 0)
+            {
+                clainList.AddRange(Roles.Select(a => new Claim(ClaimTypes.Role, a)));
+            }
 
             var tokendescription = new SecurityTokenDescriptor
             {

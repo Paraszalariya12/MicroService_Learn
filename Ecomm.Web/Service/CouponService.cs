@@ -20,7 +20,7 @@ namespace Ecomm.Web.Service
                 {
                     AccessToken = "",
                     ApiType = Constants.APIType.POST,
-                    Data= coupon,
+                    Data = coupon,
                     Url = Constants.CouponAPIBaseUrl + $"/api/coupon"
 
                 });
@@ -98,7 +98,7 @@ namespace Ecomm.Web.Service
                     Url = Constants.CouponAPIBaseUrl + "/api/coupon"
 
                 });
-                if (result != null)
+                if (result != null && result.Data != null)
                 {
                     return result;
                 }
@@ -108,7 +108,7 @@ namespace Ecomm.Web.Service
                     {
                         Data = null,
                         IsSuccess = false,
-                        Message = "No Result Found !!"
+                        Message = result != null ? result.Message : "No Data Found..!!"
                     };
                 }
 

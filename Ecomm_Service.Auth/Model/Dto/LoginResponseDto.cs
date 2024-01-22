@@ -4,6 +4,7 @@
     {
         public UserDto userDto { get; set; }
         public string Token { get; set; }
+        public bool IsRoleExists { get; set; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Ecomm.Web.Models;
 using Ecomm.Web.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
@@ -19,7 +20,11 @@ namespace Ecomm.Web.Controllers
             ResponseDto? responseDto = await _couponService.GetAllAsync();
             if (responseDto != null && responseDto.IsSuccess)
             {
-                lst = JsonConvert.DeserializeObject<List<CouponDto>>((string)responseDto.Data);
+                lst = JsonConvert.DeserializeObject<List<CouponDto>>((string)responseDto?.Data);
+            }
+            else
+            {
+                TempData["error"] = responseDto?.Message;
             }
             return View(lst);
         }
