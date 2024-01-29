@@ -108,6 +108,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
@@ -136,6 +137,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
             try
@@ -166,6 +168,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
 
         [HttpDelete]
         [Route("{CouponId:int}")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int CouponId)
         {
             try

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecomm_Service.CouponAPI", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecomm.Web", "Ecomm.Web\Ecomm.Web.csproj", "{8703927E-4A34-4D88-AB12-21615294ACD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecomm_Service.AuthAPI", "Ecomm_Service.Auth\Ecomm_Service.AuthAPI.csproj", "{0C040E0F-0B61-4F79-923E-57CFD8676FC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecomm_Service.AuthAPI", "Ecomm_Service.Auth\Ecomm_Service.AuthAPI.csproj", "{0C040E0F-0B61-4F79-923E-57CFD8676FC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecomm_Service.ProductAPI", "Ecomm_Service.ProductAPI\Ecomm_Service.ProductAPI.csproj", "{27674C7D-A8FB-4625-96BF-ACAD80BA9048}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{0C040E0F-0B61-4F79-923E-57CFD8676FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C040E0F-0B61-4F79-923E-57CFD8676FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C040E0F-0B61-4F79-923E-57CFD8676FC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27674C7D-A8FB-4625-96BF-ACAD80BA9048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27674C7D-A8FB-4625-96BF-ACAD80BA9048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27674C7D-A8FB-4625-96BF-ACAD80BA9048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27674C7D-A8FB-4625-96BF-ACAD80BA9048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{2FF036AE-16E2-4C5D-BD9F-D294EB995410} = {BDA655FB-D45E-4B75-AFA3-6A59541BCE1F}
 		{8703927E-4A34-4D88-AB12-21615294ACD1} = {E683A4E1-27BA-4618-90D4-E3B266706B2A}
 		{0C040E0F-0B61-4F79-923E-57CFD8676FC7} = {BDA655FB-D45E-4B75-AFA3-6A59541BCE1F}
+		{27674C7D-A8FB-4625-96BF-ACAD80BA9048} = {BDA655FB-D45E-4B75-AFA3-6A59541BCE1F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51339E18-8C41-4C30-87AA-67C58E8DAA7F}

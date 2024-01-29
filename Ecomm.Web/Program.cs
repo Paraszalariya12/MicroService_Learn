@@ -17,11 +17,12 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 Constants.CouponAPIBaseUrl = builder.Configuration["ServiceUrls:CouponAPIBaseUrl"];
 Constants.AuthAPIBaseUrl = builder.Configuration["ServiceUrls:AuthAPIBaseUrl"];
-
+Constants.ProductAPIBaseUrl = builder.Configuration["ServiceUrls:ProductAPIBaseUrl"];
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
 {

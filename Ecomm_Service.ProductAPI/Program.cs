@@ -1,19 +1,16 @@
 using AutoMapper;
-using Ecomm_Service.CouponAPI;
-using Ecomm_Service.CouponAPI.Data;
-using Ecomm_Service.CouponAPI.Extensions;
+using Ecomm_Service.ProductAPI;
+using Ecomm_Service.ProductAPI.Data;
+using Ecomm_Service.ProductAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("coupon"));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("Product"));
 });
 
 //Start AutoMapper Config
@@ -22,9 +19,12 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //END AutoMapper Config
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+//Start Generate Swgger With Authentication Token
 builder.Services.AddSwaggerGen(option =>
 {
     option.AddSecurityDefinition(name: JwtBearerDefaults.AuthenticationScheme, securityScheme: new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -50,7 +50,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 
 });
-
+//End Generate Swgger With Authentication Token
 
 builder.AddAppAuthentication();
 

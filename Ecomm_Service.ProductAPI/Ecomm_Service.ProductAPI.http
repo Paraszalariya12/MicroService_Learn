@@ -1,0 +1,6 @@
+@Ecomm_Service.ProductAPI_HostAddress = http://localhost:5109
+
+GET {{Ecomm_Service.ProductAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
