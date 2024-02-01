@@ -15,7 +15,7 @@
 
         <nav class="navbar navbar-expand-lg bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">E-commerce</a>
+                <a class="navbar-brand text-light" href="#">E-commerce</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -23,18 +23,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarColor01">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link text-light">
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <a class="nav-link text-light" href="#">Features</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
+                            <a class="nav-link text-light" href="#">Pricing</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Management</a>
+                            <a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Management</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Coupon</a>
                                 <a class="dropdown-item" asp-controller="Product" asp-action="ProductIndex">Product</a>
@@ -49,19 +49,22 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link " asp-controller="Auth" asp-action="Login">Login</a>
+                                <a class="nav-link text-light" asp-controller="Auth" asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " asp-controller="Auth" asp-action="Register">Register</a>
+                                <a class="nav-link text-light" asp-controller="Auth" asp-action="Register">Register</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link " asp-controller="Auth" asp-action="Profile">Hello @User.Identity.Name</a>
+                                <a class="nav-link text-light" asp-controller="ShoppingCart" asp-action="CartIndex"><i class="bi bi-cart-fill"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " asp-controller="Auth" asp-action="Logout">Logout</a>
+                                <a class="nav-link text-light" asp-controller="Auth" asp-action="Profile">Hello @User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Auth" asp-action="Logout">Logout</a>
                             </li>
                         }
 

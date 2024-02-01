@@ -13,7 +13,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
 {
     [Route("api/Coupon")]
     [ApiController]
-    [Authorize]
+    
     public class CouponAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -26,6 +26,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public ResponseDto Get()
         {
@@ -53,6 +54,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
             return responseDto;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{CouponId:int}")]
         public ResponseDto Get(int CouponId)
@@ -107,8 +109,9 @@ namespace Ecomm_Service.CouponAPI.Controllers
             return responseDto;
         }
 
+
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
@@ -137,7 +140,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
             try
@@ -168,7 +171,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
 
         [HttpDelete]
         [Route("{CouponId:int}")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "Admin")]
         public ResponseDto Delete(int CouponId)
         {
             try

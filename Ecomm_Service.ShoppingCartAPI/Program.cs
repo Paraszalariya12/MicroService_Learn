@@ -1,16 +1,19 @@
 using AutoMapper;
-using Ecomm_Service.ProductAPI;
-using Ecomm_Service.ProductAPI.Data;
-using Ecomm_Service.ProductAPI.Extensions;
+using Ecomm_Service.ShoppingCartAPI;
+using Ecomm_Service.ShoppingCartAPI.Data;
+using Ecomm_Service.ShoppingCartAPI.Extensions;
+using Ecomm_Service.ShoppingCartAPI.Service;
+using Ecomm_Service.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("Product"));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("ShoppingCart"));
 });
 
 //Start AutoMapper Config
@@ -19,12 +22,15 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //END AutoMapper Config
 
-// Add services to the container.
+builder.Services.AddHttpClient("Product", a => a.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
+builder.Services.AddHttpClient("Coupon", a => a.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
-//Start Generate Swgger With Authentication Token
 builder.Services.AddSwaggerGen(option =>
 {
     option.AddSecurityDefinition(name: JwtBearerDefaults.AuthenticationScheme, securityScheme: new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -48,10 +54,8 @@ builder.Services.AddSwaggerGen(option =>
             }, new string[]{ }
         }
     });
-
 });
-//End Generate Swgger With Authentication Token
-
+//Add Authentication
 builder.AddAppAuthentication();
 
 var app = builder.Build();
@@ -62,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseStaticFiles();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

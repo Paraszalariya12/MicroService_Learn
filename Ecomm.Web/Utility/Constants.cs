@@ -8,6 +8,8 @@
         public static string AuthAPIBaseUrl { get; set; }
         public static string ProductAPIBaseUrl { get; set; }
 
+        public static string ShoppingcartBaseUrl { get; set; }
+
         public static string Role_Admin = "Admin";
         public static string Role_Customer = "Customer";
 

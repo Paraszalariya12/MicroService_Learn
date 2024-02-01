@@ -1,6 +1,7 @@
 ﻿using Ecomm.Web.Models;
 using Ecomm.Web.Service;
 using Ecomm.Web.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -31,6 +32,7 @@ namespace Ecomm.Web.Controllers
             return View(list);
         }
 
+        [Authorize]
         public async Task<IActionResult> ProductCreate()
         {
             ProductDto objproductdto = new();
@@ -38,6 +40,7 @@ namespace Ecomm.Web.Controllers
             return View(objproductdto);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> ProductCreate(ProductDto model)
         {
@@ -68,6 +71,7 @@ namespace Ecomm.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> ProductEdit(int productId)
         {
             ResponseDto? response = await _productService.GetAsync(productId);
@@ -84,6 +88,7 @@ namespace Ecomm.Web.Controllers
             return NotFound();
         }
 
+        [Authorize]
         public async Task<IActionResult> ProductDelete(int productId)
         {
             var result = await _productService.GetAsync(productId);

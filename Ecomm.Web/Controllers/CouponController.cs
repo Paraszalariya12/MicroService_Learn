@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Ecomm.Web.Controllers
 {
+    [Authorize]
     public class CouponController : Controller
     {
         public readonly ICouponService _couponService;

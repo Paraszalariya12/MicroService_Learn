@@ -12,7 +12,7 @@ namespace Ecomm_Service.ProductAPI.Controllers
 {
     [Route("api/product")]
     [ApiController]
-    [Authorize]
+    
     public class ProductAPIController : ControllerBase
     {
 
@@ -55,6 +55,7 @@ namespace Ecomm_Service.ProductAPI.Controllers
 
         [HttpGet]
         [Route("{ProductId:int}")]
+        [Authorize]
         public ResponseDto Get(int ProductId)
         {
             try

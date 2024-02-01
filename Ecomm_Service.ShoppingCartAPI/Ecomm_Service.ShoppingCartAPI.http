@@ -1,0 +1,6 @@
+@Ecomm_Service.ShoppingCartAPI_HostAddress = http://localhost:5130
+
+GET {{Ecomm_Service.ShoppingCartAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
