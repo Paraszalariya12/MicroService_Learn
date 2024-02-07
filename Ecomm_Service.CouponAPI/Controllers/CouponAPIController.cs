@@ -83,6 +83,7 @@ namespace Ecomm_Service.CouponAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("GetByCode/{CouponCode}")]
         public ResponseDto GetByCode(string CouponCode)
         {
@@ -108,7 +109,6 @@ namespace Ecomm_Service.CouponAPI.Controllers
 
             return responseDto;
         }
-
 
         [HttpPost]
         [Authorize(Roles = "Admin")]

@@ -195,26 +195,35 @@ namespace Ecomm_Service.ShoppingCartAPI.Controllers
         }
 
 
-        [HttpDelete("DeleteCartDetail")]
+        [HttpDelete("DeleteCartDetail/{cartDetailId}")]
         public async Task<IActionResult> DeleteCartDetail(int cartDetailId)
         {
             try
             {
                 CartDetail cartDetails = _context.cartDetails
-                   .First(u => u.CartDetailsId == cartDetailId);
-
-                int totalCountofCartItem = _context.cartDetails.Where(u => u.CartHeaderId == cartDetails.CartHeaderId).Count();
-                _context.cartDetails.Remove(cartDetails);
-                if (totalCountofCartItem == 1)
+                   .FirstOrDefault(u => u.CartDetailsId == cartDetailId);
+                if (cartDetails != null)
                 {
-                    var cartHeaderToRemove = await _context.cartHeaders
-                       .FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
 
-                    _context.cartHeaders.Remove(cartHeaderToRemove);
+
+                    int totalCountofCartItem = _context.cartDetails.Where(u => u.CartHeaderId == cartDetails.CartHeaderId).Count();
+                    _context.cartDetails.Remove(cartDetails);
+                    if (totalCountofCartItem == 1)
+                    {
+                        var cartHeaderToRemove = await _context.cartHeaders
+                           .FirstOrDefaultAsync(u => u.CartHeaderId == cartDetails.CartHeaderId);
+
+                        _context.cartHeaders.Remove(cartHeaderToRemove);
+                    }
+                    await _context.SaveChangesAsync();
+
+                    _responseDto.IsSuccess = true;
                 }
-                await _context.SaveChangesAsync();
-
-                _responseDto.Data = true;
+                else
+                {
+                    _responseDto.IsSuccess = false;
+                    _responseDto.Message = "No Record Found.";
+                }
 
             }
             catch (Exception ex)

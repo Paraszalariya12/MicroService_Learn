@@ -4,6 +4,7 @@ using Ecomm_Service.ShoppingCartAPI.Data;
 using Ecomm_Service.ShoppingCartAPI.Extensions;
 using Ecomm_Service.ShoppingCartAPI.Service;
 using Ecomm_Service.ShoppingCartAPI.Service.IService;
+using Ecomm_Service.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -22,8 +23,10 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //END AutoMapper Config
 
-builder.Services.AddHttpClient("Product", a => a.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
-builder.Services.AddHttpClient("Coupon", a => a.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
+builder.Services.AddHttpClient("Product", a => a.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
+builder.Services.AddHttpClient("Coupon", a => a.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();

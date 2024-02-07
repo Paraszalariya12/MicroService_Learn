@@ -31,6 +31,7 @@ namespace Ecomm.Web.Controllers
                 ResponseDto? objresponse = await _shoppingCartService.GetCartByUserId(userid);
                 if (objresponse != null && objresponse.IsSuccess)
                 {
+                    
                     cartDto = JsonConvert.DeserializeObject<CartDto>(Convert.ToString(objresponse.Data));
                     return cartDto;
                 }
@@ -50,6 +51,12 @@ namespace Ecomm.Web.Controllers
             ResponseDto? objresponse = await _shoppingCartService.DeleteCartDetail(CartDetailsId);
             if (objresponse != null && objresponse.IsSuccess)
             {
+                TempData["success"] = "Item Removed from cart Successully";
+                return RedirectToAction(nameof(CartIndex));
+            }
+            else
+            {
+                TempData["error"] = objresponse.Message;
                 return RedirectToAction(nameof(CartIndex));
             }
 
@@ -61,6 +68,7 @@ namespace Ecomm.Web.Controllers
             ResponseDto? objresponse = await _shoppingCartService.ApplyCoupon(cartDto);
             if (objresponse != null && objresponse.IsSuccess)
             {
+                TempData["success"] = "Coupon Applied on cart Successully";
                 return RedirectToAction(nameof(CartIndex));
             }
 
@@ -73,6 +81,7 @@ namespace Ecomm.Web.Controllers
             ResponseDto? objresponse = await _shoppingCartService.ApplyCoupon(cartDto);
             if (objresponse != null && objresponse.IsSuccess)
             {
+                TempData["success"] = "Coupon Removed on cart Successully";
                 return RedirectToAction(nameof(CartIndex));
             }
 
